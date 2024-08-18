@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         在 earthworm 的控制台答题
-// @namespace    https://github.com/lzj97
+// @namespace    https://github.com/lzj97/earthworm-input
 // @version      0.0.1
 // @description  程序员就要用程序员的方式答题
 // @author       Calvin
