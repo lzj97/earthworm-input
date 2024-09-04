@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         在 earthworm 的控制台答题
 // @namespace    https://github.com/lzj97/earthworm-input
-// @version      0.0.1
+// @version      0.0.2
 // @description  程序员就要用程序员的方式答题
 // @author       Calvin
 // @match        https://earthworm.cuixueshe.com/*
@@ -20,9 +20,46 @@
   // 输错3次弹出提示的类名
   const tipClass = '.absolute.top-36.flex.items-center.justify-center.text-xl  .text-3xl'
 
+  // 显示句子中文
   window.show = function () {
-    return document.querySelector(textClass).innerHTML
+    const textNode = document.querySelector(textClass)
+    if(textNode){
+      window.play()
+      return textNode.innerHTML
+    }else{
+      return '找不到句子，可能本章已经结束'
+    }
   }
+
+
+
+  const buttonMap = {
+    'play':'播放发音',
+    'next':'下一课'
+  }
+  function triggerButton(text){
+    if(!text){
+      throw Error('请输入触发按钮包含的内容')
+    }
+    const buttons = document.querySelectorAll('button')
+    if(buttons.length){
+      const playButton = [].find.call(buttons,item=>item.innerText.includes(text))
+      if(playButton){
+        playButton.click()
+      }
+    }
+  }
+
+  // 播放音频
+  window.play = function () {
+    triggerButton(buttonMap.play)
+  }
+
+  // 开始下一章(仅当前章节结束时可用)
+  window.next = function () {
+    triggerButton(buttonMap.next)
+  }
+  
 
   // 触发回车事件
   function enter(input) {
